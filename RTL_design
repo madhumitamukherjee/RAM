@@ -1,0 +1,28 @@
+///////////////////RTL Design code////////////////////////////
+module memory_read_write(input clk,enable,rdwr,
+                         input  [3:0] datain,
+                         input  [5:0] address,
+                         output reg [3:0] dataout
+                        );
+  reg [3:0] mem[0:63];
+  always@(posedge clk)
+    if (enable)
+      begin
+        if(rdwr)
+          dataout=mem[address];
+        else
+        mem[address]=datain;
+      end
+  else
+    dataout=4'bzzzz;
+endmodule
+///////////////////interface//////////////////////////////////////
+
+interface memory_if();
+  logic clk,rdwr,enable;
+  logic [3:0] datain;
+  logic [5:0] address;
+  logic [3:0] dataout;
+  
+endinterface
+  
